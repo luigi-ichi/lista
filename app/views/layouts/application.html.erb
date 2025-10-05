@@ -28,24 +28,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&family=Cantata+One&display=swap" rel="stylesheet">
 
-
-
   </head>
 
   <body>
+    <%= render partial: "layouts/navbar" %>
     <!-- Navigation & Flash Messages -->
+    <% if notice.present? %>
+      <div class="bg-info-subtle text-info-emphasis p-3 toast-header"><%= notice %></div>
+      
+    <% end %>
+    <% if alert.present? %>
+      <div class="bg-danger-subtle text-danger-emphasis p-3 toast-header"><%= alert %></div>
+    <% end %>
 
-    <div> <%= notice %> </div>
-    <div> <%= alert %> </div>
-
-  <% if user_signed_in? %>
-    <%=link_to "Edit Password", edit_password_path %>
-    <%= button_to "Log Out", session_path, method: :delete %>
-  <% else %>
-    <%= link_to "Sign Up", new_registration_path %>
-    <%= link_to "Log In", new_session_path %>
-  <% end %>
-
+    <main class="mx-5 ms-5 mt-5">
     <%= yield %>
+    </main>
   </body>
 </html>
