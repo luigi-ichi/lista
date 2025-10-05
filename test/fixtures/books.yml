@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  image: MyString
+  chaptersRead: 9.99
+  volumesRead: 9.99
+  dateStarted: 2025-10-05
+  dateCompleted: 2025-10-05
+  status: MyString
+
+two:
+  title: MyString
+  image: MyString
+  chaptersRead: 9.99
+  volumesRead: 9.99
+  dateStarted: 2025-10-05
+  dateCompleted: 2025-10-05
+  status: MyString

@@ -10,11 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_04_225557) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_05_101703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "books", force: :cascade do |t|
+    t.string "title"
+    t.string "image"
+    t.decimal "chaptersRead"
+    t.decimal "volumesRead"
+    t.date "dateStarted"
+    t.date "dateCompleted"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "currents", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "list_books", force: :cascade do |t|
+    t.bigint "list_id", null: false
+    t.bigint "book_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_list_books_on_book_id"
+    t.index ["list_id"], name: "index_list_books_on_list_id"
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -25,4 +52,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_04_225557) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "list_books", "books"
+  add_foreign_key "list_books", "lists"
 end
