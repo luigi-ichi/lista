@@ -8,15 +8,57 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!--
+      The two identical <div>'s at the end of <nav> are the login and signup buttons.
+      The first <div> is only shown for smaller screens, while the second <div> is
+      only shown for larger (desktop) screens, as evident of the .d-"" classes,
+      activated depending on the reported screen size by the browser.
+    -->
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <% if current_user %>
-          <li class="nav-item">
-            <%= link_to "Change Password", edit_password_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= button_to "Log Out", session_path, method: :delete, class: "nav-link fw-bold text-danger"%>
-          </li>
+          <li class="nav-item dropdown">
+            <% current_user.lists.each do |list| %>
+              <li class="nav-item">
+                <%= link_to list.title, "/lists/#{list.id}", class: "nav-link" %>
+              </li>
+            <% end %>
+          <!-- Account Dropdown at the bottom of the expanded navbar when toggled on small screens -->
+
+              <div class="d-flex d-lg-none">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="text-body-tertiary text-uppercase fw-bold"><%= current_user.email %></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li class="dropdown-item">
+                      <%= link_to "Change Password", edit_password_path, class: "nav-link" %>
+                    </li>
+                    <li class="dropdown-item">
+                      <%= button_to "Log Out", session_path, method: :delete, class: "nav-link fw-bold text-danger"%>
+                    </li>
+                  </ul>
+                </li>
+              </div>
+
+        <!-- Account Dropdown at the end of the navbar when the display is "lg" (large) -->
+        <div class="d-none d-lg-flex position-absolute end-0 top-50 translate-middle-y" style="padding-right: 1rem;">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="text-body-tertiary text-uppercase fw-bold"><%= current_user.email %></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <%= link_to "Change Password", edit_password_path, class: "dropdown-item" %>
+              </li>
+              <li>
+                <%= button_to "Log Out", session_path, method: :delete, class: "dropdown-item text-danger fw-bold dropdown-item"%>
+              </li>
+          </div>
+        </div>
+        
         <% else %>
           <li class="nav-item">
             <%= link_to "Log In", new_session_path, class: "nav-link" %>
