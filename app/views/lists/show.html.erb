@@ -1,6 +1,25 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @list %>
+<div>
+    <h2>Books in this list:</h2>
+    <% if @list.books.any? %>
+        <ul>
+        <% @list.books.each do |book| %>
+            <li>
+            <strong>Title:</strong> <%= book.title %><br>
+            <%= link_to "Edit", edit_list_book_path(@list, book) %> |
+            <%= button_to "Delete", list_book_path(@list, book), method: :delete, data: { confirm: "Are you sure?" } %>
+            </li>
+        <% end %>
+        </ul>
+    <% else %>
+        <p>No books in this list yet.</p>
+    <% end %>
+
+    <%= link_to "Add a new book", new_list_book_path(@list), class: "btn btn-primary" %>
+</div>
+
 
 <div>
   <%= link_to "Edit this list", edit_list_path(@list) %> |
