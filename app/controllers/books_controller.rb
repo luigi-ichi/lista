@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
+  before_action :set_list, only: %i[ new create ]
 
   # GET /books or /books.json
   def index
@@ -12,7 +13,7 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
-    @book = Book.new
+    @book = @list.books.build
   end
 
   # GET /books/1/edit
@@ -21,11 +22,11 @@ class BooksController < ApplicationController
 
   # POST /books or /books.json
   def create
-    @book = Book.new(book_params)
+    @book = @list.books.build(book_params)
 
     respond_to do |format|
       if @book.save
-        format.html { redirect_to @book, notice: "Book was successfully created." }
+        format.html { redirect_to @list, notice: "Book was successfully created." }
         format.json { render :show, status: :created, location: @book }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -52,7 +53,7 @@ class BooksController < ApplicationController
     @book.destroy!
 
     respond_to do |format|
-      format.html { redirect_to books_path, notice: "Book was successfully destroyed.", status: :see_other }
+      format.html { redirect_to list_path , notice: "Book was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -61,6 +62,12 @@ class BooksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params[:id])
+    end
+
+    def set_list
+      @list = List.find(params[:list_id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to lists_path, alert: "List not found."
     end
 
     # Only allow a list of trusted parameters through.
