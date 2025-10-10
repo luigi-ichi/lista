@@ -24,6 +24,20 @@
               <% end %>
             </li>
           <% end %>
+            <li class="nav-item disabled d-none d-lg-block">
+              <span class="nav-link disabled">|</span>
+            </li>
+            <!-- <li class="nav-item">
+              <%= link_to new_list_path, class: "nav-link" do %>
+                <i class="fa-solid fa-plus"></i> <span class="fst-italic">New List</span>
+              <% end %>
+            </li>
+            -->
+            <li class="nav-item">
+                <%= link_to lists_path, class: "nav-link" do %>
+                    <i class="fa-solid fa-list"></i> <span class="fst-italic">All Lists</span>
+                <% end %>
+            </li>
 
           <!-- Account Dropdown for small screens -->
           <li class="nav-item dropdown d-block d-lg-none">
