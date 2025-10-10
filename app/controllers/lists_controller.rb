@@ -1,9 +1,11 @@
 class ListsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_list, only: %i[ show edit update destroy ]
+  before_action :authorize_list_access, only: %i[ show edit update destroy ]
 
   # GET /lists or /lists.json
   def index
-    @lists = List.all
+    @lists = current_user.lists
   end
 
   # GET /lists/1 or /lists/1.json
@@ -12,7 +14,7 @@ class ListsController < ApplicationController
 
   # GET /lists/new
   def new
-    @list = List.new
+    @list = current_user.lists.build
   end
 
   # GET /lists/1/edit
@@ -21,7 +23,7 @@ class ListsController < ApplicationController
 
   # POST /lists or /lists.json
   def create
-    @list = List.new(list_params)
+    @list = current_user.lists.build(list_params)
 
     respond_to do |format|
       if @list.save
@@ -63,8 +65,15 @@ class ListsController < ApplicationController
       @list = List.find(params[:id])
     end
 
+    # Authorization check to ensure users can only access their own lists
+    def authorize_list_access
+      unless @list.user == current_user
+        redirect_to lists_path, alert: "You are not authorized to access this list."
+      end
+    end
+
     # Only allow a list of trusted parameters through.
     def list_params
-      params.require(:list).permit(:title, :user_id)
+      params.require(:list).permit(:title)
     end
 end
