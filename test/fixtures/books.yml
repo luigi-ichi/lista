@@ -1,19 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  image: MyString
-  chaptersRead: 9.99
-  volumesRead: 9.99
-  dateStarted: 2025-10-05
-  dateCompleted: 2025-10-05
-  status: MyString
+  title: Sample Book One
+  image: https://placehold.co/400x600/png
+  chaptersRead: 5
+  volumesRead: 1
+  dateStarted: 2025-01-01
+  dateCompleted: 2025-01-01
+  status: Reading
+  list: one
 
 two:
-  title: MyString
-  image: MyString
-  chaptersRead: 9.99
-  volumesRead: 9.99
-  dateStarted: 2025-10-05
-  dateCompleted: 2025-10-05
-  status: MyString
+  title: Sample Book Two
+  image: https://placehold.co/400x600/png
+  chaptersRead: 1
+  volumesRead: 1
+  dateStarted: 2025-01-01
+  dateCompleted: 2025-01-01
+  status: Plan to Read
+  list: two

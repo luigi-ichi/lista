@@ -17,7 +17,7 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create list" do
     assert_difference("List.count") do
-      post lists_url, params: { list: { title: @list.title } }
+      post lists_url, params: { list: { title: "New Reading List", user_id: users(:one).id } }
     end
 
     assert_redirected_to list_url(List.last)

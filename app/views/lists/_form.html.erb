@@ -17,7 +17,7 @@
   </div>
 
     <!-- hide this field so that user_id is automatically assigned to the user's list -->
-    <%= form.number_field :user_id, value: current_user.id, style: "display: none"%>
+    <%= form.number_field :user_id, value: current_user&.id, style: "display: none"%>
   <div>
     <%= form.submit class:"btn btn-lg btn-primary w-100" %>
   </div>
