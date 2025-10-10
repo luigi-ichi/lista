@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: %i[ show edit update destroy ]
-  before_action :set_list, only: %i[ new create ]
+  before_action :set_book, only: %i[ show edit update destroy increment_chapter ]
+  before_action :set_list, only: %i[ show new create increment_chapter ]
 
   # GET /books or /books.json
   def index
@@ -48,6 +48,15 @@ class BooksController < ApplicationController
     end
   end
 
+  def increment_chapter
+    @book.increment!(:chaptersRead)
+
+    respond_to do |format|
+      format.html { redirect_to @list, notice: "Chapter count for #{@book.title} incremented to #{@book.chaptersRead}." }
+      format.json { render json: { chaptersRead: @book.chaptersRead } }
+    end
+  end
+
   # DELETE /books/1 or /books/1.json
   def destroy
     @book.destroy!
@@ -65,7 +74,11 @@ class BooksController < ApplicationController
     end
 
     def set_list
-      @list = List.find(params[:list_id])
+      if params[:list_id]
+        @list = List.find(params[:list_id])
+      elsif @book&.list
+        @list = @book.list
+      end
     rescue ActiveRecord::RecordNotFound
       redirect_to lists_path, alert: "List not found."
     end
