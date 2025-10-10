@@ -19,9 +19,11 @@
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <!-- CUSTOM CSS -->
     <%= stylesheet_link_tag 'lista', media: 'all', data: { turbolinks: false } %>
+
+    <!-- HUGEICONS ICON LIBRARY  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,15 +36,21 @@
     <%= render partial: "layouts/navbar" %>
     <!-- Navigation & Flash Messages -->
     <% if notice.present? %>
-      <div class="bg-info-subtle text-info-emphasis p-3 toast-header"><%= notice %></div>
-      
+      <div class="alert alert-info alert-dismissible fade show px-3 p-2" role="alert">
+          <%= notice %>
+          <button type="button" class="btn-close pb-1 align-self-center" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
     <% end %>
     <% if alert.present? %>
-      <div class="bg-danger-subtle text-danger-emphasis p-3 toast-header"><%= alert %></div>
+      <div class="bg-danger-subtle text-danger-emphasis px-3 p-2 toast-header"><%= alert %></div>
     <% end %>
 
-    <main class="mx-5 ms-5 mt-5">
+    <main class="mx-3 mx-md-3 mt-4 mt-md-5">
     <%= yield %>
     </main>
+
+    <!-- BOOTSTRAP JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
 </html>
