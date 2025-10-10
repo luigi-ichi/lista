@@ -1,29 +1,85 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render @list %>
-<div>
-    <h2>Books in this list:</h2>
+<div class="container-fluid overflow-hidden">
     <% if @list.books.any? %>
-        <ul>
-        <% @list.books.each do |book| %>
-            <li>
-            <strong>Title:</strong> <%= book.title %><br>
-            <%= link_to "Edit", edit_list_book_path(@list, book) %> |
-            <%= button_to "Delete", list_book_path(@list, book), method: :delete, data: { confirm: "Are you sure?" } %>
-            </li>
-        <% end %>
-        </ul>
-    <% else %>
-        <p>No books in this list yet.</p>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-2">
+        <% @list.books.order(:updated_at).each do |book| %>
+          <div class="col col-md-6 col-xl-4">
+            <div class="p-3 card h-100">
+              <div class="row row-cols-2 g-3">
+
+                <div class="col-4 col-md-4">
+                  <a href="<%= edit_list_book_path(@list, book) %>" style="text-decoration: none; color: inherit;">
+                  <% if book.image.blank? %>
+                  <img src="https://placehold.co/400x600/png" class="img-fluid rounded" alt="No Image Available">
+                  <% else %>
+                  <img src="<%= book.image %>" class="img-fluid rounded" alt="<%= book.title %>">
+                  <% end %>
+                  </a>
+                </div>
+
+                <div class="col-8 col-md-8">
+                  <a href="<%= edit_list_book_path(@list, book) %>" style="text-decoration: none; color: inherit;">
+                  <h4 class="card-title heading-font pt-2"><%= book.title %></h4>
+                  <span class="fw-bold">Chapters: <%= number_with_precision(book.chaptersRead, strip_insignificant_zeros: true) %></span>
+                  <br>
+                  <span>Volumes: <%= number_with_precision(book.volumesRead, strip_insignificant_zeros: true) %></span>
+                  </a>
+
+                  <div class="position-absolute bottom-0 end-0">
+                      <%= button_to "+", increment_chapter_list_book_path(@list, book), method: :patch, class: "btn btn-lg btn-outline-primary me-2 mb-2" %>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+
+            <%#= link_to "Edit", edit_list_book_path(@list, book) %>
+            <%#= button_to "Delete", list_book_path(@list, book), method: :delete, data: { confirm: "Are you sure?" } %>
+
+    </div>
     <% end %>
 
-    <%= link_to "Add a new book", new_list_book_path(@list), class: "btn btn-primary" %>
+    <% else %>
+        <p> Start populating your list with a book! </p>
+    <% end %>
+</div>
+
+<div class="container-fluid overflow-hidden mt-4">
+  <%= link_to new_list_book_path(@list), class: "btn btn-lg btn-primary w-100" do %>
+     <i class="fa-solid fa-book-medical"></i> Add a new book
+  <% end %>
+    <%= link_to edit_list_path(@list), class: "btn btn-secondary w-100 mt-2" do%>
+      <i class="fa-solid fa-pen"></i> Edit this list
+    <% end %>
+    <button type="button" class="btn btn-danger w-100 mt-2" data-bs-toggle="modal" data-bs-target="#deleteListModal">
+      <i class="fa-solid fa-trash"></i> Destroy this list
+    </button>
+
+    <div class="modal fade" id="deleteListModal" tabindex="-1" aria-labelledby="deleteListModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="deleteListModalLabel">List Deletion</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this list? Any books in this list will also be deleted and cannot be recovered.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button>-->
+            <%= button_to "Yes", @list, method: :delete, class: "btn btn-danger w-100", data: { confirm: "Are you sure?" } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </div>
 
 
+<!-- --
 <div>
-  <%= link_to "Edit this list", edit_list_path(@list) %> |
   <%= link_to "Back to lists", lists_path %>
 
-  <%= button_to "Destroy this list", @list, method: :delete %>
 </div>
+-->
