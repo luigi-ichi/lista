@@ -1,0 +1,60 @@
+<%= form_with(model: [@list, book]) do |form| %>
+  <% if book.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+      <ul>
+        <% book.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group my-3">
+    <div>
+        <%= form.label :title, "Title", class: "form-label", style: "display: block"%>
+        <%= form.text_field :title, class: "form-control"%>
+    </div>
+
+    <div class="mt-3">
+        <%= form.label :image, "Image URL", class: "form-label", style: "display: block"%>
+        <%= form.text_field :image, class: "form-control"%>
+    </div>
+
+    <div class="mt-3">
+        <%= form.label :chaptersRead, "Chapters Read", class: "form-label", style: "display: block"%>
+        <%= form.text_field :chaptersRead, type: "number", class: "form-control"%>
+    </div>
+
+    <div class="mt-3">
+        <%= form.label :volumesRead, "Volumes Read", class: "form-label", style: "display: block"%>
+        <%= form.text_field :volumesRead, type: "number", class: "form-control"%>
+    </div>
+
+    <div class="mt-3">
+        <%= form.label :dateStarted, "Date Started", class: "form-label", style: "display: block"%>
+        <%= form.date_field :dateStarted, class: "form-control"%>
+    </div>
+
+    <div class="mt-3">
+        <%= form.label :dateCompleted, "Date Completed", class: "form-label", style: "display: block"%>
+        <%= form.date_field :dateCompleted, class: "form-control"%>
+    </div>
+
+    <div class="mt-3">
+        <%= form.label :status, class: "form-label", style: "display: block"%>
+        <%= form.text_field :status, class: "form-control"%>
+    </div>
+
+    <div class="my-3">
+      <div class="row">
+        <div class="col">
+            <%= link_to "Back to list", list_path(@list), class: "btn btn-lg btn-secondary w-100" %>
+        </div>
+        <div class="col">
+          <%= form.submit class: "btn btn-lg btn-primary w-100"%>
+        </div>
+    </div>
+  </div>
+<% end %>

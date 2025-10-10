@@ -10,13 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_04_225557) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_10_153013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "books", force: :cascade do |t|
+    t.string "title"
+    t.string "image"
+    t.decimal "chaptersRead"
+    t.decimal "volumesRead"
+    t.date "dateStarted"
+    t.date "dateCompleted"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "list_id", null: false
+    t.index ["list_id"], name: "index_books_on_list_id"
+  end
 
   create_table "currents", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -25,4 +46,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_04_225557) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "books", "lists"
 end

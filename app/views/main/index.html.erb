@@ -1,17 +1,21 @@
 <% if user_signed_in? %>
   <!-- Content for logged-in users -->
-  <h1 class="display-1 text-center mb-4">Hey, this part's still under construction!</h1>
-  <p class="lead text-center">Try again sometime when the developer knows how to make a database! (Userland still works though)</p>
+    <div class="position-absolute top-50 start-50 translate-middle w-75">
+        <div class="container">
+        <h1 class="display-1 mb-4">Create your first list!</h1>
+        <%= render "lists/form", list: List.new %>
+        </div>
+    </div>
 
 <!-- Content for guest users -->
-<% else %> 
+<% else %>
   <div class="position-absolute top-50 start-50 translate-middle w-75">
     <div class="container">
       <h1 class="display-1" style="font-size: 5em">Lista</h1>
       <h2>Keep track of your reading!</h2>
       <!-- <p class="text-muted">Get organized, stay productive, and manage your tasks efficiently.</p> -->
     </div>
-    
+
     <div class="container pt-5">
       <div class="row row-cols-1 row-cols-md-2 g-3">
         <div class="col">

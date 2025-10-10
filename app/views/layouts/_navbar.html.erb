@@ -1,21 +1,72 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
   <div class="container-fluid">
     <% if current_user %>
-    <a class="navbar-brand" href="/">Home</a>
-    <% else %>
-    <a class="navbar-brand" href="/"></a>
+      <a class="navbar-brand heading-font fs-3" href="#">Lista</a>
     <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!--
+      The two account dropdowns at the end of <nav> are for login/signup and account actions.
+      The first is only shown for smaller screens, the second for larger screens, as evident by the .d-"" classes.
+    -->
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <% if current_user %>
-          <li class="nav-item">
-            <%= link_to "Change Password", edit_password_path, class: "nav-link" %>
+          <% current_user.lists.each do |list| %>
+            <li class="nav-item">
+              <% if @list && @list.id == list.id %>
+                <%= link_to list.title, "/lists/#{list.id}", class: "nav-link active fw-bolder", "aria-current" => "page" %>
+              <% else %>
+              <%= link_to list.title, "/lists/#{list.id}", class: "nav-link" %>
+              <% end %>
+            </li>
+          <% end %>
+            <li class="nav-item disabled d-none d-lg-block">
+              <span class="nav-link disabled">|</span>
+            </li>
+            <!-- <li class="nav-item">
+              <%= link_to new_list_path, class: "nav-link" do %>
+                <i class="fa-solid fa-plus"></i> <span class="fst-italic">New List</span>
+              <% end %>
+            </li>
+            -->
+            <li class="nav-item">
+                <%= link_to lists_path, class: "nav-link" do %>
+                    <i class="fa-solid fa-list"></i> <span class="fst-italic">All Lists</span>
+                <% end %>
+            </li>
+
+          <!-- Account Dropdown for small screens -->
+          <li class="nav-item dropdown d-block d-lg-none">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="text-body-tertiary text-uppercase fw-bold"><%= current_user.email %></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <%= link_to "Change Password", edit_password_path, class: "dropdown-item" %>
+              </li>
+              <li>
+                <%= button_to "Log Out", session_path, method: :delete, class: "dropdown-item text-danger fw-bold" %>
+              </li>
+            </ul>
           </li>
-          <li class="nav-item">
-            <%= button_to "Log Out", session_path, method: :delete, class: "nav-link fw-bold text-danger"%>
+
+          <!-- Account Dropdown for large screens -->
+          <li class="nav-item dropdown d-none d-lg-flex position-absolute end-0 top-50 translate-middle-y" style="padding-right: 1rem;">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="text-body-tertiary text-uppercase fw-bold"><%= current_user.email %></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <%= link_to "Change Password", edit_password_path, class: "dropdown-item" %>
+              </li>
+              <li>
+                <%= button_to "Log Out", session_path, method: :delete, class: "dropdown-item text-danger fw-bold" %>
+              </li>
+            </ul>
           </li>
         <% else %>
           <li class="nav-item">

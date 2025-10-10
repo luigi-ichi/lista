@@ -1,0 +1,31 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Lists" %>
+
+<h1><i class="fa-solid fa-list mb-2"></i> All Lists</h1>
+
+<div class="container-fluid lists">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-2">
+  <% @lists.each do |list| %>
+
+    <a href=<%= list_path(list) %> style="text-decoration: none; color: inherit;">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <%= render list %>
+        </div>
+        <div class="card-body">
+          <span class="text-muted"><%= pluralize(list.books.count, 'book') %></span>
+        </div>
+      </div>
+    </div>
+    </a>
+  <% end %>
+  </div>
+</div>
+
+<div class="container-fluid mt-3">
+    <%= link_to new_list_path, class: "btn btn-lg btn-primary w-100" do %>
+        <i class="fa-solid fa-plus"></i> Create a new list
+    <% end %>
+</div>

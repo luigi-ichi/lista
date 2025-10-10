@@ -10,4 +10,6 @@ class User < ApplicationRecord
   generates_token_for :email_confirmation, expires_in: 24.hours do
       email
   end
+
+  has_many :lists, dependent: :destroy
 end
