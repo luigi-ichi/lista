@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   resources :lists do
-    resources :books, except: [ :index ]
+    resources :books, except: [] do
+      member do
+        patch :increment_chapter
+      end
+    end
   end
+
   resources :books, only: [:index, :show, :edit, :update, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resource :registration, only: [ :new, :create ]
