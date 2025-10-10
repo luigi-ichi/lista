@@ -18,7 +18,7 @@
           <% current_user.lists.each do |list| %>
             <li class="nav-item">
               <% if @list && @list.id == list.id %>
-                <span class="nav-link active fw-bolder" aria-current="page"><%= list.title %></span>
+                <%= link_to list.title, "/lists/#{list.id}", class: "nav-link active fw-bolder", "aria-current" => "page" %>
               <% else %>
               <%= link_to list.title, "/lists/#{list.id}", class: "nav-link" %>
               <% end %>
