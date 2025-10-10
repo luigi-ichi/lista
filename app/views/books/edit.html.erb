@@ -1,12 +1,13 @@
 <% content_for :title, "Editing book" %>
 
-<div class="container">
+<div class="container-fluid px-lg-5">
   <div class="row align-items-center mb-4">
-    <div class="col-5 col-md-3 text-center">
+    <div class="col-5 col-md-3 col-lg-3 col-xl-2 text-center">
       <img src=<%= @book.image.present? ? @book.image : "https://placehold.co/400x600/png" %> class="img-fluid rounded" alt="<%= @book.title %>">
     </div>
-    <div class="col">
-      <h1><%= @book.title %></h1>
+    <div class="col text-md-center">
+      <h1 class="d-block d-md-none"><%= @book.title %></h1>
+      <h1 class="d-none d-md-block display-4"><%= @book.title %></h1>
     </div>
   </div>
 </div>
