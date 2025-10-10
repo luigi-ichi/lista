@@ -43,7 +43,11 @@
 
     <% end %>
     <% if alert.present? %>
-      <div class="bg-danger-subtle text-danger-emphasis px-3 p-2 toast-header"><%= alert %></div>
+      <div class="alert alert-danger alert-dismissible fade show px-3 p-2" role="alert">
+          <%= alert %>
+          <button type="button" class="btn-close pb-1 align-self-center" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
     <% end %>
 
     <main class="mx-3 mx-md-3 mt-4 mt-md-5">
