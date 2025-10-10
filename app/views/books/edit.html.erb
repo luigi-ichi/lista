@@ -30,7 +30,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
         <!-- <button type="button" class="btn btn-primary">Save changes</button>-->
-        <%= button_to "Yes", @book, method: :delete, class: "btn btn-danger w-100", data: { confirm: "Are you sure?" } %>
+        <%= button_to "Yes", [@list, @book], method: :delete, class: "btn btn-danger w-100", data: { confirm: "Are you sure?" } %>
       </div>
     </div>
   </div>
@@ -38,7 +38,7 @@
 
   <!--
 <div>
-  <%= link_to "Show this book", @book %> |
-  <%= link_to "Back to books", books_path %>
+  <%#= link_to "Show this book", @book %> |
+  <%#= link_to "Back to books", books_path %>
 </div>
 -->

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :books, only: [:index, :show, :edit, :update, :destroy]
+  # resources :books, only: [:index, :show, :edit, :update, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resource :registration, only: [ :new, :create ]
   resource :session, only: [ :new, :create, :destroy ]
