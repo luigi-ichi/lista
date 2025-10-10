@@ -1,8 +1,10 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy increment_chapter ]
-  before_action :set_list, only: %i[ show new create increment_chapter ]
+  before_action :set_list, only: %i[ show new create edit update destroy increment_chapter ]
+
 
   # GET /books or /books.json
+  """
   def index
     @books = Book.all
   end
@@ -11,9 +13,11 @@ class BooksController < ApplicationController
   def show
   end
 
+  """
+
   # GET /books/new
   def new
-    @book = @list.books.build
+    @book = @list.books.build(chaptersRead: 0, volumesRead: 0)
   end
 
   # GET /books/1/edit
@@ -26,7 +30,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
-        format.html { redirect_to @list, notice: "Book was successfully created." }
+        format.html { redirect_to @book.list, notice: "Book was successfully created." }
         format.json { render :show, status: :created, location: @book }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +43,7 @@ class BooksController < ApplicationController
   def update
     respond_to do |format|
       if @book.update(book_params)
-        format.html { redirect_to @book, notice: "Book was successfully updated.", status: :see_other }
+        format.html { redirect_to @list, notice: "\"#{@book.title}\" was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @book }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -62,7 +66,7 @@ class BooksController < ApplicationController
     @book.destroy!
 
     respond_to do |format|
-      format.html { redirect_to list_path , notice: "Book was successfully destroyed.", status: :see_other }
+      format.html { redirect_to @list, notice: "Book was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
