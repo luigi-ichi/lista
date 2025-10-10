@@ -17,7 +17,7 @@
                   </a>
                 </div>
 
-                <div class="col-8 col-md-8">
+                <div class="col-8 col-md-8 mb-2">
                   <a href="<%= edit_list_book_path(@list, book) %>" style="text-decoration: none; color: inherit;">
                   <h4 class="card-title heading-font pt-2"><%= book.title %></h4>
                   <span class="fw-bold">Chapters: <%= number_with_precision(book.chaptersRead, strip_insignificant_zeros: true) %></span>
