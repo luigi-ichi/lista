@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    redirect_to login_path, alert: "You must be logged in to continue." unless user_signed_in?
+    redirect_to new_session_path, alert: "You must be logged in to continue." unless user_signed_in?
   end
 
   def current_user
