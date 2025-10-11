@@ -19,7 +19,6 @@ class BooksController < ApplicationController
   # GET /books/new
   def new
     if authorize_list_access == false
-      return
     else
       @book = @list.books.build(chaptersRead: 0, volumesRead: 0)
     end

@@ -6,6 +6,7 @@ class MainController < ApplicationController
 
       if current_user.lists.present?
         redirect_to lists_path
+        return
       end
 
       @user = current_user
