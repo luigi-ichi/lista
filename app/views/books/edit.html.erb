@@ -14,9 +14,11 @@
 
 <%= render "form", book: @book %>
 
-<button type="button" class="btn btn-lg btn-danger w-100 mt-2" data-bs-toggle="modal" data-bs-target="#deleteBookModal">
-  <i class="fa-solid fa-trash"></i> Delete this book
-</button>
+<div class="container-fluid px-lg-5 my-2 mb-3">
+    <button type="button" class="btn btn-lg btn-danger w-100 mt-2" data-bs-toggle="modal" data-bs-target="#deleteBookModal">
+    <i class="fa-solid fa-trash"></i> Delete this book
+    </button>
+</div>
 
 <div class="modal fade" id="deleteBookModal" tabindex="-1" aria-labelledby="deleteBookModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
