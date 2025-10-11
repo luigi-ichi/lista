@@ -17,6 +17,6 @@ services:
         fromDatabase:
           name: lista
           property: connectionString
-      - key: RAILS_MASSTER_KEY
+      - key: RAILS_MASTER_KEY
         sync:false- key: WEB_CONCURRENCY
         value: "2" #sensible default for free plan
