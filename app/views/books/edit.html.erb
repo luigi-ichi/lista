@@ -1,21 +1,24 @@
 <% content_for :title, "Editing book" %>
 
-<div class="container">
+<div class="container-fluid px-lg-5">
   <div class="row align-items-center mb-4">
-    <div class="col-5 col-md-3 text-center">
+    <div class="col-5 col-md-3 col-lg-3 col-xl-2 text-center">
       <img src=<%= @book.image.present? ? @book.image : "https://placehold.co/400x600/png" %> class="img-fluid rounded" alt="<%= @book.title %>">
     </div>
-    <div class="col">
-      <h1><%= @book.title %></h1>
+    <div class="col text-md-center">
+      <h1 class="d-block d-md-none"><%= @book.title %></h1>
+      <h1 class="d-none d-md-block display-4"><%= @book.title %></h1>
     </div>
   </div>
 </div>
 
 <%= render "form", book: @book %>
 
-<button type="button" class="btn btn-lg btn-danger w-100 mt-2" data-bs-toggle="modal" data-bs-target="#deleteBookModal">
-  <i class="fa-solid fa-trash"></i> Delete this book
-</button>
+<div class="container-fluid px-lg-5 my-2 mb-3">
+    <button type="button" class="btn btn-lg btn-danger w-100 mt-2" data-bs-toggle="modal" data-bs-target="#deleteBookModal">
+    <i class="fa-solid fa-trash"></i> Delete this book
+    </button>
+</div>
 
 <div class="modal fade" id="deleteBookModal" tabindex="-1" aria-labelledby="deleteBookModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

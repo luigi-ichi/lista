@@ -3,6 +3,8 @@ require "test_helper"
 class ListsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @list = lists(:one)
+    @user = users(:one)
+    login_as(@user)
   end
 
   test "should get index" do
@@ -17,7 +19,7 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create list" do
     assert_difference("List.count") do
-      post lists_url, params: { list: { title: "New Reading List", user_id: users(:one).id } }
+      post lists_url, params: { list: { title: "New Reading List" } }
     end
 
     assert_redirected_to list_url(List.last)
@@ -34,7 +36,7 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update list" do
-    patch list_url(@list), params: { list: { title: @list.title } }
+    patch list_url(@list), params: { list: { title: "Updated Title" } }
     assert_redirected_to list_url(@list)
   end
 

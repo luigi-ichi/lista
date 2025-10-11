@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy increment_chapter ]
   before_action :set_list, only: %i[ show new create edit update destroy increment_chapter ]
+  before_action :authorize_list_access, only: %i[ show edit update destroy ] # Same as in ListsController to ensure users can only access their own lists
 
 
   # GET /books or /books.json
@@ -17,7 +18,10 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
-    @book = @list.books.build(chaptersRead: 0, volumesRead: 0)
+    if authorize_list_access == false
+    else
+      @book = @list.books.build(chaptersRead: 0, volumesRead: 0)
+    end
   end
 
   # GET /books/1/edit
@@ -85,6 +89,13 @@ class BooksController < ApplicationController
       end
     rescue ActiveRecord::RecordNotFound
       redirect_to lists_path, alert: "List not found."
+    end
+
+    # Same mechanism as in ListsController to ensure users can only access their own lists
+    def authorize_list_access
+      unless @list.user == current_user
+        redirect_to lists_path, alert: "You are not authorized to access this list."
+      end
     end
 
     # Only allow a list of trusted parameters through.

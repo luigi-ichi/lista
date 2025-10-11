@@ -2,8 +2,8 @@
 
 one:
   title: Reading List
-  user_id: 1
+  user: one
 
 two:
   title: Manga Collection
-  user_id: 1
+  user: one
